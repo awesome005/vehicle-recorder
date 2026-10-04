@@ -1,0 +1,39 @@
+# Keil MDK 编译产物
+**/Objects/
+**/Listings/
+**/DebugConfig/
+**/RTE/
+
+# Keil 用户配置文件（含本地绝对路径）
+*.uvoptx
+*.uvguix.*
+*.uvopt
+*.uvprojx.bak
+
+# 编译中间文件
+*.o
+*.obj
+*.axf
+*.crf
+*.d
+*.dep
+*.lnp
+*.lst
+*.map
+*.htm
+*.build_log.htm
+*.plg
+*.iex
+*.sct.bak
+*.bak
+
+# 调试文件
+*.ini
+*.log
+JLinkLog.txt
+
+# 通用
+.DS_Store
+Thumbs.db
+*.tmp
+*.hex
