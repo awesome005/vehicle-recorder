@@ -209,6 +209,14 @@ void OLED_ShowChar(uint8_t x, uint8_t y, char ch)
         OLED_WriteData(0x64);
         OLED_WriteData(0x63);
     }
+    else if (ch == '-')
+    {
+        OLED_WriteData(0x08);
+        OLED_WriteData(0x08);
+        OLED_WriteData(0x08);
+        OLED_WriteData(0x08);
+        OLED_WriteData(0x08);
+    }
     else
     {
         for (i = 0; i < 5; i++)

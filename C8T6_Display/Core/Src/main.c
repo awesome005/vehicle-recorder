@@ -111,6 +111,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   char oled_buf[32];
   uint8_t page = 0;
+  uint8_t last_page = 0xFF;
   uint32_t cnt_page = 0;
   uint32_t cnt_oled = 0;
   
@@ -119,7 +120,7 @@ int main(void)
       MY_CAN_Poll();
       
       cnt_page++;
-      if(cnt_page >= 500)
+      if(cnt_page >= 300)
       {
           cnt_page = 0;
           page = (page + 1) % 3;
@@ -127,9 +128,15 @@ int main(void)
       
       /* 每 200ms 刷一次 */
       cnt_oled++;
-      if (cnt_oled >= 20)
+      if (cnt_oled >= 10)
 {
           cnt_oled = 0;
+    
+        if (page != last_page)
+        {
+            OLED_Clear();
+            last_page = page;
+        }
 
       /* State 数字转字符串 */
       const char *state_str;
@@ -143,33 +150,33 @@ int main(void)
       }
 
 
-      OLED_Clear();
-      OLED_ShowString(0, 0, (char *)state_str);
+      sprintf(oled_buf, "%-8s", state_str);
+      OLED_ShowString(0, 0, oled_buf);
 
       if (page == 0)
       {
         /* 第 1 页：Roll、Pitch */
-        sprintf(oled_buf, "Roll:  %.1f", can_roll);
+        sprintf(oled_buf, "Roll:  %5.1f", can_roll);
         OLED_ShowString(0, 2, oled_buf);
-        sprintf(oled_buf, "Pitch: %.1f", can_pitch);
+        sprintf(oled_buf, "Pitch: %5.1f", can_pitch);
         OLED_ShowString(0, 4, oled_buf);
       }
       else if (page == 1)
       {
         /* 第 2 页：Temp、Humi */
-        sprintf(oled_buf, "Temp: %.1f C", can_temp);
+        sprintf(oled_buf, "Temp: %5.1f C", can_temp);
         OLED_ShowString(0, 2, oled_buf);
-        sprintf(oled_buf, "Humi: %.1f %%", can_humi);
+        sprintf(oled_buf, "Humi: %5.1f %%", can_humi);
         OLED_ShowString(0, 4, oled_buf);
       }
       else
       {
         /* 第 3 页：Ax、Ay、Az */
-        sprintf(oled_buf, "Ax: %.2f g", can_ax);
+        sprintf(oled_buf, "Ax: %6.2f g", can_ax);
         OLED_ShowString(0, 2, oled_buf);
-        sprintf(oled_buf, "Ay: %.2f g", can_ay);
+        sprintf(oled_buf, "Ay: %6.2f g", can_ay);
         OLED_ShowString(0, 4, oled_buf);
-        sprintf(oled_buf, "Az: %.2f g", can_az);
+        sprintf(oled_buf, "Az: %6.2f g", can_az);
         OLED_ShowString(0, 6, oled_buf);
       }
 }

@@ -27,3 +27,5 @@ void Sensor_Send(void)
     HAL_UART_Transmit(&huart1, (uint8_t *)buf, len, 100);
 }
 
+
+
