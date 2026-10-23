@@ -126,7 +126,7 @@ int main(void)
           page = (page + 1) % 3;
       }
       
-      /* 每 200ms 刷一次 */
+      /* 每 100ms 刷一次 */
       cnt_oled++;
       if (cnt_oled >= 10)
 {
